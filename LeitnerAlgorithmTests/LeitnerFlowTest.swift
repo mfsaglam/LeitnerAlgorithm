@@ -107,6 +107,8 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[4].count, 0, "The last box should be empty after an incorrect answer.")
         XCTAssertEqual(sut.boxes[0][0].id, id, "The card should move back to the previous box after an incorrect answer.")
     }
+
+     // MARK: - Test Helpers
     
     private func makeSUT() -> LeitnerSystem {
         return LeitnerSystem()
@@ -114,7 +116,7 @@ class LeitnerFlowTest: XCTestCase {
     
     private func makeCard(with id: UUID) -> Card {
         let word = makeWord()
-        return Card(id: id, word: word, lastReviewed: Date(), reviewInterval: 1)
+        return Card(id: id, word: word, lastReviewed: fixedDate, reviewInterval: 1)
     }
     
     private func makeWord(
@@ -128,6 +130,10 @@ class LeitnerFlowTest: XCTestCase {
     
     private var fixedUuid: UUID {
         return UUID(uuidString: "2A8DDD36-50D3-458A-A2BF-B0A1E36C1759")!
+    }
+
+    private var fixedDate: Date {
+        return Date(timeIntervalSince1970: 0)  // Fixed date for testing
     }
 }
 
@@ -184,7 +190,7 @@ struct Card {
     init(
         id: UUID = UUID(),
         word: Word,
-        lastReviewed: Date,
+        lastReviewed: Date = Date(),
         reviewInterval: Int
     ) {
         self.id = id
