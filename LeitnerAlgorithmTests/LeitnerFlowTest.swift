@@ -34,6 +34,22 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[1][0].id, id, "The second box should contain the card just moved.")
     }
     
+    func test_cardInSecondBox_correctAnswer_movesCardToThirdBox() {
+        let sut = makeSUT()
+        
+        let id = fixedUuid
+        let card = makeCard(with: id)
+        
+        // Move the card to the last box manually
+        sut.boxes[1].append(card)
+        
+        sut.updateCard(card, correct: true)
+        
+        XCTAssertEqual(sut.boxes[0].count, 0, "The first box should be empty.")
+        XCTAssertEqual(sut.boxes[1].count, 0, "The second box should be empty.")
+        XCTAssertEqual(sut.boxes[2][0].id, id, "The next(third) box should contain the card just moved.")
+    }
+    
     func test_cardInLastBox_correctAnswer_keepsCardInLastBox() {
         let sut = makeSUT()
         
