@@ -11,7 +11,7 @@ class LeitnerSystem {
     var boxes: [[Card]]
     
     init(boxAmount: UInt = 5) {
-        boxes = Array(repeating: [], count: Int(boxAmount))
+        boxes = Array(repeating: [], count: boxAmount == 0 ? 1 : Int(boxAmount))
     }
 
     func addCard(_ card: Card) {

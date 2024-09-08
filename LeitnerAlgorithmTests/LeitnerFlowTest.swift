@@ -10,6 +10,11 @@ import XCTest
 @testable import LeitnerAlgorithm
 
 class LeitnerFlowTest: XCTestCase {
+    
+    func test_init_canNotBecreatedWithZeroAmountOfBoxes() {
+        let sut = makeSUT(boxAmount: 0)
+        XCTAssert(!sut.boxes.isEmpty, "System can not be created with 0 amount of boxes.")
+    }
 
     func test_init_createsWithGivenAmountOfBoxes() {
         let sut1 = makeSUT(boxAmount: 1)
