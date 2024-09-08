@@ -10,6 +10,22 @@ import Foundation
 class LeitnerSystem {
     private(set) var boxes: [[Card]]
     
+    /// Initializes a `LeitnerSystem` with a specified number of boxes.
+    ///
+    /// - Parameter boxAmount: The number of boxes to initialize the system with.
+    ///   If the provided value is less than 2, the system will default to 2 boxes.
+    ///   This ensures that there is a minimum of two boxes to support the basic
+    ///   functionality of the Leitner System. Defaults to 5.
+    ///
+    /// Example Usage:
+    /// ```
+    /// let system = LeitnerSystem(boxAmount: 7) // Creates a system with 7 boxes
+    /// let defaultSystem = LeitnerSystem()      // Creates a system with the default 5 boxes
+    /// ```
+    ///
+    /// Note: Adjusting the number of boxes may affect the behavior and complexity
+    /// of the spaced repetition algorithm. Ensure that the number of boxes aligns
+    /// with your intended use case.
     init(boxAmount: UInt = 5) {
         boxes = Array(repeating: [], count: boxAmount < 2 ? 2 : Int(boxAmount))
     }
