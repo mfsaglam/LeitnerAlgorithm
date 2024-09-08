@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1259B4B62C8DDB55002424A0 /* LeitnerAlgorithm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1259B4AD2C8DDB55002424A0 /* LeitnerAlgorithm.framework */; };
 		1259B4C62C8DE3D0002424A0 /* LeitnerFlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C52C8DE3D0002424A0 /* LeitnerFlowTest.swift */; };
+		1259B4C82C8E0165002424A0 /* LeitnerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */; };
+		1259B4CA2C8E0182002424A0 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C92C8E0182002424A0 /* Word.swift */; };
+		1259B4CC2C8E018A002424A0 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4CB2C8E018A002424A0 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +28,9 @@
 		1259B4AD2C8DDB55002424A0 /* LeitnerAlgorithm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeitnerAlgorithm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1259B4B52C8DDB55002424A0 /* LeitnerAlgorithmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeitnerAlgorithmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1259B4C52C8DE3D0002424A0 /* LeitnerFlowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeitnerFlowTest.swift; sourceTree = "<group>"; };
+		1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeitnerSystem.swift; sourceTree = "<group>"; };
+		1259B4C92C8E0182002424A0 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		1259B4CB2C8E018A002424A0 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,9 @@
 		1259B4AF2C8DDB55002424A0 /* LeitnerAlgorithm */ = {
 			isa = PBXGroup;
 			children = (
+				1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */,
+				1259B4C92C8E0182002424A0 /* Word.swift */,
+				1259B4CB2C8E018A002424A0 /* Card.swift */,
 			);
 			path = LeitnerAlgorithm;
 			sourceTree = "<group>";
@@ -140,6 +149,7 @@
 				TargetAttributes = {
 					1259B4AC2C8DDB55002424A0 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 					1259B4B42C8DDB55002424A0 = {
 						CreatedOnToolsVersion = 15.4;
@@ -188,6 +198,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1259B4C82C8E0165002424A0 /* LeitnerSystem.swift in Sources */,
+				1259B4CC2C8E018A002424A0 /* Card.swift in Sources */,
+				1259B4CA2C8E0182002424A0 /* Word.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +351,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -363,6 +377,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -371,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -403,6 +419,7 @@
 		1259B4C32C8DDB55002424A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -420,6 +437,7 @@
 		1259B4C42C8DDB55002424A0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

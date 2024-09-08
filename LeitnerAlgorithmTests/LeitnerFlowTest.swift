@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+@testable import LeitnerAlgorithm
 
 class LeitnerFlowTest: XCTestCase {
     
@@ -139,68 +140,5 @@ class LeitnerFlowTest: XCTestCase {
 
     private var fixedDate: Date {
         return Date(timeIntervalSince1970: 0)  // Fixed date for testing
-    }
-}
-
-class LeitnerSystem {
-    var boxes: [[Card]] = Array(repeating: [], count: 5)  // 5 boxes (0 to 4)
-
-    func addCard(_ card: Card) {
-        boxes[0].append(card)  // Start card in the first box
-    }
-
-    func updateCard(_ card: Card, correct: Bool) {
-        // Find the card's current box
-        for (boxIndex, box) in boxes.enumerated() {
-            if let index = box.firstIndex(where: { $0.id == card.id }) {
-                boxes[boxIndex].remove(at: index)
-                
-                if correct {
-                    let nextBox = min(boxIndex + 1, boxes.count - 1)
-                    boxes[nextBox].append(card)  // Move card to the next box
-                } else {
-                    boxes[0].append(card)  // Move card back to the first box
-                }
-                break
-            }
-        }
-    }
-}
-
-struct Word {
-    let word: String
-    let languageCode: String
-    let meaning: String
-    let exampleSentence: String?
-    
-    init(
-        word: String,
-        languageCode: String,
-        meaning: String,
-        exampleSentence: String?
-    ) {
-        self.word = word
-        self.languageCode = languageCode
-        self.meaning = meaning
-        self.exampleSentence = exampleSentence
-    }
-}
-
-struct Card {
-    let id: UUID
-    let word: Word
-    let lastReviewed: Date
-    let reviewInterval: Int
-    
-    init(
-        id: UUID = UUID(),
-        word: Word,
-        lastReviewed: Date = Date(),
-        reviewInterval: Int
-    ) {
-        self.id = id
-        self.word = word
-        self.lastReviewed = lastReviewed
-        self.reviewInterval = reviewInterval
     }
 }
