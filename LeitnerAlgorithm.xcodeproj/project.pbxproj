@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1259B4B62C8DDB55002424A0 /* LeitnerAlgorithm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1259B4AD2C8DDB55002424A0 /* LeitnerAlgorithm.framework */; };
-		1259B4BB2C8DDB55002424A0 /* LeitnerAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4BA2C8DDB55002424A0 /* LeitnerAlgorithmTests.swift */; };
-		1259B4BC2C8DDB55002424A0 /* LeitnerAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 1259B4B02C8DDB55002424A0 /* LeitnerAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1259B4C62C8DE3D0002424A0 /* LeitnerFlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C52C8DE3D0002424A0 /* LeitnerFlowTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,9 +23,8 @@
 
 /* Begin PBXFileReference section */
 		1259B4AD2C8DDB55002424A0 /* LeitnerAlgorithm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeitnerAlgorithm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1259B4B02C8DDB55002424A0 /* LeitnerAlgorithm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeitnerAlgorithm.h; sourceTree = "<group>"; };
 		1259B4B52C8DDB55002424A0 /* LeitnerAlgorithmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeitnerAlgorithmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1259B4BA2C8DDB55002424A0 /* LeitnerAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeitnerAlgorithmTests.swift; sourceTree = "<group>"; };
+		1259B4C52C8DE3D0002424A0 /* LeitnerFlowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeitnerFlowTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +67,6 @@
 		1259B4AF2C8DDB55002424A0 /* LeitnerAlgorithm */ = {
 			isa = PBXGroup;
 			children = (
-				1259B4B02C8DDB55002424A0 /* LeitnerAlgorithm.h */,
 			);
 			path = LeitnerAlgorithm;
 			sourceTree = "<group>";
@@ -77,7 +74,7 @@
 		1259B4B92C8DDB55002424A0 /* LeitnerAlgorithmTests */ = {
 			isa = PBXGroup;
 			children = (
-				1259B4BA2C8DDB55002424A0 /* LeitnerAlgorithmTests.swift */,
+				1259B4C52C8DE3D0002424A0 /* LeitnerFlowTest.swift */,
 			);
 			path = LeitnerAlgorithmTests;
 			sourceTree = "<group>";
@@ -89,7 +86,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1259B4BC2C8DDB55002424A0 /* LeitnerAlgorithm.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +143,7 @@
 					};
 					1259B4B42C8DDB55002424A0 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -198,7 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1259B4BB2C8DDB55002424A0 /* LeitnerAlgorithmTests.swift in Sources */,
+				1259B4C62C8DE3D0002424A0 /* LeitnerFlowTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +403,7 @@
 		1259B4C32C8DDB55002424A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RPQ3VF2JBZ;
@@ -414,6 +412,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mfsaglam.LeitnerAlgorithmTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -421,6 +420,7 @@
 		1259B4C42C8DDB55002424A0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RPQ3VF2JBZ;
