@@ -120,12 +120,17 @@ class LeitnerFlowTest: XCTestCase {
     }
     
     private func makeWord(
-        word: String = "",
-        languageCode: String = "",
-        meaning: String = "",
+        word: String = "defaultWord",
+        languageCode: String = "en",
+        meaning: String = "defaultMeaning",
         exampleSentence: String? = nil
     ) -> Word {
-        return .init(word: word, languageCode: languageCode, meaning: meaning, exampleSentence: exampleSentence)
+        return Word(
+            word: word,
+            languageCode: languageCode,
+            meaning: meaning,
+            exampleSentence: exampleSentence
+        )
     }
     
     private var fixedUuid: UUID {
