@@ -10,7 +10,24 @@ import XCTest
 @testable import LeitnerAlgorithm
 
 class LeitnerFlowTest: XCTestCase {
-    
+
+    func test_init_createsWithGivenAmountOfBoxes() {
+        let sut1 = makeSUT(boxAmount: 1)
+        XCTAssertEqual(sut1.boxes.count, 1)
+        
+        let sut2 = makeSUT(boxAmount: 2)
+        XCTAssertEqual(sut2.boxes.count, 2)
+        
+        let sut3 = makeSUT(boxAmount: 3)
+        XCTAssertEqual(sut3.boxes.count, 3)
+        
+        let sut10 = makeSUT(boxAmount: 10)
+        XCTAssertEqual(sut10.boxes.count, 10)
+        
+        let sut21 = makeSUT(boxAmount: 21)
+        XCTAssertEqual(sut21.boxes.count, 21)
+    }
+
     func test_addCard_addsToFirstBox() {
         let sut = makeSUT()
         
@@ -111,8 +128,8 @@ class LeitnerFlowTest: XCTestCase {
 
      // MARK: - Test Helpers
     
-    private func makeSUT() -> LeitnerSystem {
-        return LeitnerSystem()
+    private func makeSUT(boxAmount: UInt = 5) -> LeitnerSystem {
+        return LeitnerSystem(boxAmount: boxAmount)
     }
     
     private func makeCard(with id: UUID) -> Card {

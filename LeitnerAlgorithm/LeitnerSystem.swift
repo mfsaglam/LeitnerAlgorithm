@@ -8,7 +8,11 @@
 import Foundation
 
 class LeitnerSystem {
-    var boxes: [[Card]] = Array(repeating: [], count: 5)  // 5 boxes (0 to 4)
+    var boxes: [[Card]]
+    
+    init(boxAmount: UInt = 5) {
+        boxes = Array(repeating: [], count: Int(boxAmount))
+    }
 
     func addCard(_ card: Card) {
         boxes[0].append(card)  // Start card in the first box
