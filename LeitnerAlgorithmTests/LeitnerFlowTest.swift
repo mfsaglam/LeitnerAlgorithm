@@ -13,31 +13,44 @@ class LeitnerFlowTest: XCTestCase {
     func test_addCard_addsToFirstBox() {
         let sut = LeitnerSystem()
         
-        let card = makeCard()
+        let id = fixedUuid
+        let card = makeCard(with: id)
         sut.addCard(card)
 
         XCTAssertEqual(sut.boxes[0].count, 1, "The first box should contain the card after it's added.")
+        XCTAssertEqual(sut.boxes[0][0].word.id, id, "The first box should contain the card after it's added.")
     }
     
     func test_correctAnswer_movesCardToNextBox() {
         let sut = LeitnerSystem()
         
-        let card = makeCard()
+        let id = fixedUuid
+        let card = makeCard(with: id)
         sut.addCard(card)
         
         sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[0].count, 0, "The first box should be empty.")
-        XCTAssertEqual(sut.boxes[1].count, 1, "The second box should contain the card just moved.")
+        XCTAssertEqual(sut.boxes[1][0].word.id, id, "The second box should contain the card just moved.")
     }
     
-    private func makeCard() -> Card {
-        return Card(word: anyWord, lastReviewed: Date(), reviewInterval: 1)
+    private func makeCard(with wordId: UUID) -> Card {
+        let word = makeWord(id: wordId)
+        return Card(word: word, lastReviewed: Date(), reviewInterval: 1)
     }
     
-    private var anyWord: Word {
-        let word = Word(id: UUID(), word: "apple", languageCode: "en", meaning: "a fruit", exampleSentence: nil)
-        return word
+    private func makeWord(
+        id: UUID,
+        word: String = "",
+        languageCode: String = "",
+        meaning: String = "",
+        exampleSentence: String? = nil
+    ) -> Word {
+        return .init(id: id, word: word, languageCode: languageCode, meaning: meaning, exampleSentence: exampleSentence)
+    }
+    
+    private var fixedUuid: UUID {
+        return UUID(uuidString: "2A8DDD36-50D3-458A-A2BF-B0A1E36C1759")!
     }
 }
 
