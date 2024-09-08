@@ -8,16 +8,16 @@
 import Foundation
 
 class LeitnerSystem {
-    var boxes: [[Card]]
+    private(set) var boxes: [[Card]]
     
     init(boxAmount: UInt = 5) {
         boxes = Array(repeating: [], count: boxAmount < 2 ? 2 : Int(boxAmount))
     }
-
+    
     func addCard(_ card: Card) {
         boxes[0].append(card)  // Start card in the first box
     }
-
+    
     func updateCard(_ card: Card, correct: Bool) {
         // Find the card's current box
         for (boxIndex, box) in boxes.enumerated() {

@@ -64,10 +64,11 @@ class LeitnerFlowTest: XCTestCase {
         
         let id = fixedUuid
         let card = makeCard(with: id)
+        sut.addCard(card)
         
-        // Move the card to the last box manually
-        sut.boxes[1].append(card)
-        
+        // Move the card to the second box manually
+        moveCardForward(card: card, to: 1, in: sut)
+
         sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[0].count, 0, "The first box should be empty.")
@@ -80,9 +81,9 @@ class LeitnerFlowTest: XCTestCase {
         
         let id = fixedUuid
         let card = makeCard(with: id)
-        
+        sut.addCard(card)
         // Move the card to the last box manually
-        sut.boxes[4].append(card)
+        moveCardForward(card: card, to: 4, in: sut)
         
         sut.updateCard(card, correct: true)
         
@@ -108,9 +109,9 @@ class LeitnerFlowTest: XCTestCase {
 
         let id = fixedUuid
         let card = makeCard(with: id)
-        
+        sut.addCard(card)
         // Move the card to the second box manually
-        sut.boxes[1].append(card)
+        moveCardForward(card: card, to: 1, in: sut)
         
         sut.updateCard(card, correct: false)
         
@@ -123,9 +124,9 @@ class LeitnerFlowTest: XCTestCase {
 
         let id = fixedUuid
         let card = makeCard(with: id)
-        
+        sut.addCard(card)
         // Move the card to the last box manually
-        sut.boxes[4].append(card)
+        moveCardForward(card: card, to: 4, in: sut)
         
         sut.updateCard(card, correct: false)
         
@@ -137,6 +138,12 @@ class LeitnerFlowTest: XCTestCase {
     
     private func makeSUT(boxAmount: UInt = 5) -> LeitnerSystem {
         return LeitnerSystem(boxAmount: boxAmount)
+    }
+    
+    private func moveCardForward(card: Card, to boxIndex: Int, in sut: LeitnerSystem) {
+        for _ in 0..<boxIndex {
+            sut.updateCard(card, correct: true)
+        }
     }
     
     private func makeCard(with id: UUID) -> Card {
