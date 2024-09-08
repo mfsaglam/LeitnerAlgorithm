@@ -15,11 +15,13 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT(boxAmount: 0)
         XCTAssert(!sut.boxes.isEmpty, "System can not be created with 0 amount of boxes.")
     }
+    
+    func test_init_canNotBecreatedWithOneBox() {
+        let sut = makeSUT(boxAmount: 1)
+        XCTAssertEqual(sut.boxes.count, 2, "System can not be created with 0 amount of boxes.")
+    }
 
     func test_init_createsWithGivenAmountOfBoxes() {
-        let sut1 = makeSUT(boxAmount: 1)
-        XCTAssertEqual(sut1.boxes.count, 1)
-        
         let sut2 = makeSUT(boxAmount: 2)
         XCTAssertEqual(sut2.boxes.count, 2)
         
