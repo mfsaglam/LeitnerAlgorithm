@@ -18,7 +18,7 @@ class LeitnerFlowTest: XCTestCase {
         sut.addCard(card)
 
         XCTAssertEqual(sut.boxes[0].count, 1, "The first box should contain the card after it's added.")
-        XCTAssertEqual(sut.boxes[0][0].word.id, id, "The first box should contain the card after it's added.")
+        XCTAssertEqual(sut.boxes[0][0].id, id, "The first box should contain the card after it's added.")
     }
     
     func test_correctAnswer_movesCardToNextBox() {
@@ -31,22 +31,21 @@ class LeitnerFlowTest: XCTestCase {
         sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[0].count, 0, "The first box should be empty.")
-        XCTAssertEqual(sut.boxes[1][0].word.id, id, "The second box should contain the card just moved.")
+        XCTAssertEqual(sut.boxes[1][0].id, id, "The second box should contain the card just moved.")
     }
     
-    private func makeCard(with wordId: UUID) -> Card {
-        let word = makeWord(id: wordId)
-        return Card(word: word, lastReviewed: Date(), reviewInterval: 1)
+    private func makeCard(with id: UUID) -> Card {
+        let word = makeWord()
+        return Card(id: id, word: word, lastReviewed: Date(), reviewInterval: 1)
     }
     
     private func makeWord(
-        id: UUID,
         word: String = "",
         languageCode: String = "",
         meaning: String = "",
         exampleSentence: String? = nil
     ) -> Word {
-        return .init(id: id, word: word, languageCode: languageCode, meaning: meaning, exampleSentence: exampleSentence)
+        return .init(word: word, languageCode: languageCode, meaning: meaning, exampleSentence: exampleSentence)
     }
     
     private var fixedUuid: UUID {
@@ -80,20 +79,17 @@ class LeitnerSystem {
 }
 
 struct Word {
-    let id: UUID
     let word: String
     let languageCode: String
     let meaning: String
     let exampleSentence: String?
     
     init(
-        id: UUID = UUID(),
         word: String,
         languageCode: String,
         meaning: String,
         exampleSentence: String?
     ) {
-        self.id = id
         self.word = word
         self.languageCode = languageCode
         self.meaning = meaning
