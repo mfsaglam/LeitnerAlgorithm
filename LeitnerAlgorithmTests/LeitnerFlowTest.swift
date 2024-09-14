@@ -71,15 +71,6 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[0].count, 1, "The first box should contain the card after it's added.")
         XCTAssertEqual(sut.boxes[0][0].id, id, "The first box should contain the card after it's added.")
     }
-
-    func test_addCard_reviewIntervalIsOne() {
-        let sut = makeSUT()
-        
-        let card = makeCard(with: fixedUuid)
-        sut.addCard(card)
-
-        XCTAssertEqual(card.reviewInterval, 1)
-    }
     
     func test_cardInFirstBox_correctAnswer_movesCardToSecondBox() {
         let sut = makeSUT()
@@ -183,7 +174,7 @@ class LeitnerFlowTest: XCTestCase {
     
     private func makeCard(with id: UUID) -> Card {
         let word = makeWord()
-        return Card(id: id, word: word, lastReviewed: fixedDate, reviewInterval: 1)
+        return Card(id: id, word: word, lastReviewed: fixedDate)
     }
     
     private func makeWord(

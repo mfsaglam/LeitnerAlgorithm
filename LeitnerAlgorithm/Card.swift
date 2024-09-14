@@ -11,18 +11,15 @@ struct Card {
     let id: UUID
     let word: Word
     var lastReviewed: Date
-    var reviewInterval: Int
     var nextReviewDate: Date?
     
     init(
         id: UUID = UUID(),
         word: Word,
-        lastReviewed: Date = Date(),
-        reviewInterval: Int = 1
+        lastReviewed: Date = Date()
     ) {
         self.id = id
         self.word = word
         self.lastReviewed = lastReviewed
-        self.reviewInterval = reviewInterval
     }
 }
