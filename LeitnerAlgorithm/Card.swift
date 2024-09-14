@@ -21,5 +21,6 @@ struct Card {
         self.id = id
         self.word = word
         self.lastReviewed = lastReviewed
+        self.nextReviewDate = Calendar.current.date(byAdding: .day, value: 1, to: lastReviewed) // since system adds it to the first box immediately.
     }
 }
