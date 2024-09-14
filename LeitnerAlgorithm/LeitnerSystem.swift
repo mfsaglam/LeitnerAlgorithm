@@ -9,6 +9,7 @@ import Foundation
 
 class LeitnerSystem {
     private(set) var boxes: [[Card]]
+    private var reviewIntervals: [Int]  // Stores review intervals for each box
     
     /// Initializes a `LeitnerSystem` with a specified number of boxes.
     ///
@@ -27,7 +28,27 @@ class LeitnerSystem {
     /// of the spaced repetition algorithm. Ensure that the number of boxes aligns
     /// with your intended use case.
     init(boxAmount: UInt = 5) {
-        boxes = Array(repeating: [], count: boxAmount < 2 ? 2 : Int(boxAmount))
+        let boxCount = boxAmount < 2 ? 2 : Int(boxAmount)
+        boxes = Array(repeating: [], count: boxCount)
+        reviewIntervals = LeitnerSystem.generateReviewIntervals(for: boxCount)
+    }
+    
+    // Generates review intervals based on the number of boxes
+    static private func generateReviewIntervals(for boxCount: Int) -> [Int] {
+        let baseIntervals = [1, 3, 7, 14, 30, 60]
+        var intervals = [Int]()
+        
+        for i in 0..<boxCount {
+            if i < baseIntervals.count {
+                intervals.append(baseIntervals[i])
+            } else {
+                // Extend the intervals for more boxes (e.g., double the last one or add a custom logic)
+                let extendedInterval = intervals.last! * 2  // Example: extend by doubling the last interval
+                intervals.append(extendedInterval)
+            }
+        }
+        
+        return intervals
     }
     
     /// Adds a new card to the Leitner system.
@@ -82,7 +103,7 @@ class LeitnerSystem {
     /// Note: Ensure that the `card` provided is correctly initialized and exists
     /// in one of the boxes. This method assumes that the `card` is present and
     /// will not handle cases where the card is not found.
-    func updateCard(_ card: Card, correct: Bool) {
+    func updateCard(_ card: inout Card, correct: Bool) {
         // Find the card's current box
         for (boxIndex, box) in boxes.enumerated() {
             if let index = box.firstIndex(where: { $0.id == card.id }) {
@@ -90,12 +111,37 @@ class LeitnerSystem {
                 
                 if correct {
                     let nextBox = min(boxIndex + 1, boxes.count - 1)
-                    boxes[nextBox].append(card)  // Move card to the next box
+                    moveCard(&card, to: nextBox)
                 } else {
-                    boxes[0].append(card)  // Move card back to the first box
+                    moveCard(&card, to: 0) // Move back to the first box
                 }
                 break
             }
         }
     }
+
+    private func moveCard(_ card: inout Card, to boxIndex: Int) {
+        // Update the card's lastReviewed date
+        card.lastReviewed = Date()
+
+        // Calculate the next review date based on the box's interval
+        let interval = reviewInterval(for: boxIndex)
+        card.nextReviewDate = Calendar.current.date(byAdding: .day, value: interval, to: Date())
+        
+        // Move the card to the target box
+        boxes[boxIndex].append(card)
+    }
+
+    private func reviewInterval(for boxIndex: Int) -> Int {
+        // Define custom intervals for each box
+        switch boxIndex {
+        case 0: return 1  // 1 day interval for Box 1
+        case 1: return 3  // 3 days interval for Box 2
+        case 2: return 7  // 7 days interval for Box 3
+        case 3: return 14 // 14 days interval for Box 4
+        case 4: return 30 // 30 days interval for Box 5
+        default: return 1 // Default to 1 day
+        }
+    }
+
 }

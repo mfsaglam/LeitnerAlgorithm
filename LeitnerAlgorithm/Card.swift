@@ -10,14 +10,15 @@ import Foundation
 struct Card {
     let id: UUID
     let word: Word
-    let lastReviewed: Date
-    let reviewInterval: Int
+    var lastReviewed: Date
+    var reviewInterval: Int
+    var nextReviewDate: Date?
     
     init(
         id: UUID = UUID(),
         word: Word,
         lastReviewed: Date = Date(),
-        reviewInterval: Int
+        reviewInterval: Int = 1
     ) {
         self.id = id
         self.word = word
