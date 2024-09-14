@@ -119,6 +119,24 @@ class LeitnerSystem {
             }
         }
     }
+    
+    func dueForReview(limit: Int = 10) -> [Card] {
+        let calendar = Calendar.current
+        let nowDay = calendar.startOfDay(for: Date())  // Strip time from current date
+        
+        var dueCards: [Card] = []
+        
+        for boxIndex in 0 ..< boxes.count {
+            boxes[boxIndex].forEach { card in
+                let nextReviewDay = calendar.startOfDay(for: card.nextReviewDate)  // Strip time from nextReviewDate
+                if nextReviewDay <= nowDay {
+                    dueCards.append(card)
+                }
+            }
+        }
+        
+        return Array(dueCards.prefix(limit))
+    }
 
     private func moveCard(_ card: inout Card, to boxIndex: Int) {
         // Update the card's lastReviewed date
@@ -126,7 +144,7 @@ class LeitnerSystem {
 
         // Calculate the next review date based on the box's interval
         let interval = reviewInterval(for: boxIndex)
-        card.nextReviewDate = Calendar.current.date(byAdding: .day, value: interval, to: Date())
+        card.nextReviewDate = Calendar.current.date(byAdding: .day, value: interval, to: card.lastReviewed)!
         
         // Move the card to the target box
         boxes[boxIndex].append(card)
