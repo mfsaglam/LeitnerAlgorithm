@@ -9,7 +9,7 @@ import Foundation
 
 class LeitnerSystem {
     private(set) var boxes: [[Card]]
-    private var reviewIntervals: [Int]  // Stores review intervals for each box
+    private(set) var reviewIntervals: [Int]  // Stores review intervals for each box
     
     /// Initializes a `LeitnerSystem` with a specified number of boxes.
     ///
@@ -133,15 +133,7 @@ class LeitnerSystem {
     }
 
     private func reviewInterval(for boxIndex: Int) -> Int {
-        // Define custom intervals for each box
-        switch boxIndex {
-        case 0: return 1  // 1 day interval for Box 1
-        case 1: return 3  // 3 days interval for Box 2
-        case 2: return 7  // 7 days interval for Box 3
-        case 3: return 14 // 14 days interval for Box 4
-        case 4: return 30 // 30 days interval for Box 5
-        default: return 1 // Default to 1 day
-        }
+        reviewIntervals[boxIndex]
     }
 
 }

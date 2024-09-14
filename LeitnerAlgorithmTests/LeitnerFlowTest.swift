@@ -39,6 +39,27 @@ class LeitnerFlowTest: XCTestCase {
         let sut21 = makeSUT(boxAmount: 21)
         XCTAssertEqual(sut21.boxes.count, 21)
     }
+    
+    func test_reviewIntervals_withDefaultBoxes() {
+        let sut = LeitnerSystem()
+        
+        let expectedIntervals = [1, 3, 7, 14, 30]
+        XCTAssertEqual(sut.reviewIntervals, expectedIntervals, "The review intervals for 5 boxes should match the Leitner system.")
+    }
+    
+    func test_reviewIntervals_withMoreBoxes() {
+        let sut = LeitnerSystem(boxAmount: 7)
+        
+        let expectedIntervals = [1, 3, 7, 14, 30, 60, 120]
+        XCTAssertEqual(sut.reviewIntervals, expectedIntervals, "The review intervals should extend by doubling the last one when there are more boxes.")
+    }
+    
+    func test_reviewIntervals_withLessThanTwoBoxes_usesTwoReviewIntervals() {
+        let sut = LeitnerSystem(boxAmount: 1)
+        
+        let expectedIntervals = [1, 3]  // Only two intervals since there are two boxes
+        XCTAssertEqual(sut.reviewIntervals, expectedIntervals, "The system should set the review intervals for the minimum two boxes.")
+    }
 
     func test_addCard_addsToFirstBox() {
         let sut = makeSUT()
