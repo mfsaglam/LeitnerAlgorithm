@@ -33,6 +33,13 @@ class LeitnerSystem {
         reviewIntervals = LeitnerSystem.generateReviewIntervals(for: boxCount)
     }
     
+    /// Loads the provided boxes with their respective cards into the Leitner system.
+    /// This method replaces the current set of boxes with the provided boxes.
+    /// - Parameter boxes: A two-dimensional array of `Card` objects, where each subarray represents a box in the Leitner system.
+    func loadBoxes(boxes: [[Card]]) {
+        self.boxes = boxes
+    }
+
     // Generates review intervals based on the number of boxes
     static private func generateReviewIntervals(for boxCount: Int) -> [Int] {
         let baseIntervals = [1, 3, 7, 14, 30, 60]
@@ -120,6 +127,12 @@ class LeitnerSystem {
         }
     }
     
+    /// Returns the list of cards that are due for review, based on their `nextReviewDate`
+    /// compared to the current date. The method strips the time component, so only the day
+    /// is considered when determining if a card is due for review.
+    ///
+    /// - Parameter limit: The maximum number of cards to return (default is 10).
+    /// - Returns: An array of `Card` objects that are due for review, limited by the specified number.
     func dueForReview(limit: Int = 10) -> [Card] {
         let calendar = Calendar.current
         let nowDay = calendar.startOfDay(for: Date())  // Strip time from current date

@@ -39,7 +39,23 @@ class LeitnerFlowTest: XCTestCase {
         let sut21 = makeSUT(boxAmount: 21)
         XCTAssertEqual(sut21.boxes.count, 21)
     }
-    
+
+    func test_loadBoxes() {
+        let sut = makeSUT(boxAmount: 3)
+        
+        let card1 = makeCard(with: UUID())
+        let card2 = makeCard(with: UUID())
+        let newBoxes = [[card1], [card2], []]
+        sut.loadBoxes(boxes: newBoxes)
+        
+        XCTAssertEqual(sut.boxes.count, 3)
+        XCTAssertEqual(sut.boxes[0].count, 1)
+        XCTAssertEqual(sut.boxes[1].count, 1)
+        XCTAssertEqual(sut.boxes[2].count, 0)
+        XCTAssertEqual(sut.boxes[0].first?.id, card1.id)
+        XCTAssertEqual(sut.boxes[1].first?.id, card2.id)
+    }
+
     func test_reviewIntervals_withDefaultBoxes() {
         let sut = LeitnerSystem()
         
