@@ -97,19 +97,19 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[0].cards.count, 1, "The first box should contain the card after it's added.")
         XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The first box should contain the card after it's added.")
     }
-//    
-//    func test_cardInFirstBox_correctAnswer_movesCardToSecondBox() {
-//        let sut = makeSUT()
-//        
-//        let id = fixedUuid
-//        var card = makeCard(with: id)
-//        sut.addCard(card)
-//        
-//        sut.updateCard(&card, correct: true)
-//        
-//        XCTAssertEqual(sut.boxes[0].count, 0, "The first box should be empty.")
-//        XCTAssertEqual(sut.boxes[1][0].id, id, "The second box should contain the card just moved.")
-//    }
+    
+    func test_cardInFirstBox_correctAnswer_movesCardToSecondBox() {
+        let sut = makeSUT()
+        
+        let id = fixedUuid
+        var card = makeCard(with: id)
+        sut.addCard(card)
+        
+        sut.updateCard(&card, correct: true)
+        
+        XCTAssertEqual(sut.boxes[0].cards.count, 0, "The first box should be empty.")
+        XCTAssertEqual(sut.boxes[1].cards.first?.id, id, "The second box should contain the card just moved.")
+    }
 //    
 //    func test_cardInSecondBox_correctAnswer_movesCardToThirdBox() {
 //        let sut = makeSUT()
