@@ -102,10 +102,10 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
         
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         
-        sut.updateCard(&card, correct: true)
+        sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[0].cards.count, 0, "The first box should be empty.")
         XCTAssertEqual(sut.boxes[1].cards.first?.id, id, "The second box should contain the card just moved.")
@@ -115,13 +115,13 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
         
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         
         // Move the card to the second box manually
-        moveCardForward(card: &card, to: 1, in: sut)
+        moveCardForward(card: card, to: 1, in: sut)
 
-        sut.updateCard(&card, correct: true)
+        sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[0].cards.count, 0, "The first box should be empty.")
         XCTAssertEqual(sut.boxes[1].cards.count, 0, "The second box should be empty.")
@@ -132,12 +132,12 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
         
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         // Move the card to the last box manually
-        moveCardForward(card: &card, to: 4, in: sut)
+        moveCardForward(card: card, to: 4, in: sut)
         
-        sut.updateCard(&card, correct: true)
+        sut.updateCard(card, correct: true)
         
         XCTAssertEqual(sut.boxes[4].cards.count, 1, "The last box should still contain the card after a correct answer.")
         XCTAssertEqual(sut.boxes[4].cards.first?.id, id, "The card should not move beyond the last box.")
@@ -147,10 +147,10 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
         
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         
-        sut.updateCard(&card, correct: false)
+        sut.updateCard(card, correct: false)
         
         XCTAssertEqual(sut.boxes[0].cards.count, 1, "The first box should still contain the card after an incorrect answer.")
         XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The card should not move after an incorrect answer in the first box.")
@@ -160,12 +160,12 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
 
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         // Move the card to the second box manually
-        moveCardForward(card: &card, to: 1, in: sut)
+        moveCardForward(card: card, to: 1, in: sut)
         
-        sut.updateCard(&card, correct: false)
+        sut.updateCard(card, correct: false)
         
         XCTAssertEqual(sut.boxes[1].cards.count, 0, "The second box should be empty after an incorrect answer.")
         XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The card should move back to the first box after an incorrect answer.")
@@ -175,12 +175,12 @@ class LeitnerFlowTest: XCTestCase {
         let sut = makeSUT()
 
         let id = fixedUuid
-        var card = makeCard(with: id)
+        let card = makeCard(with: id)
         sut.addCard(card)
         // Move the card to the last box manually
-        moveCardForward(card: &card, to: 4, in: sut)
+        moveCardForward(card: card, to: 4, in: sut)
         
-        sut.updateCard(&card, correct: false)
+        sut.updateCard(card, correct: false)
         
         XCTAssertEqual(sut.boxes[4].cards.count, 0, "The last box should be empty after an incorrect answer.")
         XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The card should move back to the previous box after an incorrect answer.")
@@ -273,9 +273,9 @@ class LeitnerFlowTest: XCTestCase {
         return boxAmount != nil ? LeitnerSystem(boxAmount: boxAmount!) : LeitnerSystem()
     }
     
-    private func moveCardForward(card: inout Card, to boxIndex: Int, in sut: LeitnerSystem) {
+    private func moveCardForward(card: Card, to boxIndex: Int, in sut: LeitnerSystem) {
         for _ in 0..<boxIndex {
-            sut.updateCard(&card, correct: true)
+            sut.updateCard(card, correct: true)
         }
     }
     
