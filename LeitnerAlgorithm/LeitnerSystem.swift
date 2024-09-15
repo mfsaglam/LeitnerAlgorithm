@@ -8,8 +8,7 @@
 import Foundation
 
 class LeitnerSystem {
-    private(set) var boxes: [[Card]]
-    private(set) var reviewIntervals: [Int]  // Stores review intervals for each box
+    private(set) var boxes: [Box]
     
     /// Initializes a `LeitnerSystem` with a specified number of boxes.
     ///
@@ -28,15 +27,22 @@ class LeitnerSystem {
     /// of the spaced repetition algorithm. Ensure that the number of boxes aligns
     /// with your intended use case.
     init(boxAmount: UInt = 5) {
-        let boxCount = boxAmount < 2 ? 2 : Int(boxAmount)
-        boxes = Array(repeating: [], count: boxCount)
-        reviewIntervals = LeitnerSystem.generateReviewIntervals(for: boxCount)
+        let boxCount = max(2, Int(boxAmount))  // Ensure at least 2 boxes
+        let reviewIntervals = LeitnerSystem.generateReviewIntervals(for: boxCount)
+        
+        boxes = (0..<boxCount).map { index in
+            Box(
+                cards: [],
+                reviewInterval: TimeInterval(reviewIntervals[index]),
+                lastReviewedDate: Date()
+            )
+        }
     }
     
     /// Loads the provided boxes with their respective cards into the Leitner system.
     /// This method replaces the current set of boxes with the provided boxes.
     /// - Parameter boxes: A two-dimensional array of `Card` objects, where each subarray represents a box in the Leitner system.
-    func loadBoxes(boxes: [[Card]]) {
+    func loadBoxes(boxes: [Box]) {
         self.boxes = boxes
     }
 
@@ -78,7 +84,7 @@ class LeitnerSystem {
     /// The system assumes that new cards start in the first box and will handle
     /// moving the card between boxes based on user interactions.
     func addCard(_ card: Card) {
-        boxes[0].append(card)  // Start card in the first box
+        boxes[0].cards.append(card)  // Start card in the first box
     }
     
     /// Updates the status of a card based on whether the user's answer was correct or incorrect.
@@ -113,14 +119,14 @@ class LeitnerSystem {
     func updateCard(_ card: inout Card, correct: Bool) {
         // Find the card's current box
         for (boxIndex, box) in boxes.enumerated() {
-            if let index = box.firstIndex(where: { $0.id == card.id }) {
-                boxes[boxIndex].remove(at: index)
+            if let index = box.cards.firstIndex(where: { $0.id == card.id }) {
+                boxes[boxIndex].cards.remove(at: index)
                 
                 if correct {
                     let nextBox = min(boxIndex + 1, boxes.count - 1)
-                    moveCard(&card, to: nextBox)
+                    appendCard(&card, to: nextBox)
                 } else {
-                    moveCard(&card, to: 0) // Move back to the first box
+                    appendCard(&card, to: 0) // Move back to the first box
                 }
                 break
             }
@@ -134,37 +140,18 @@ class LeitnerSystem {
     /// - Parameter limit: The maximum number of cards to return (default is 10).
     /// - Returns: An array of `Card` objects that are due for review, limited by the specified number.
     func dueForReview(limit: Int = 10) -> [Card] {
-        let calendar = Calendar.current
-        let nowDay = calendar.startOfDay(for: Date())  // Strip time from current date
-        
+        let today = Calendar.current.startOfDay(for: Date())
         var dueCards: [Card] = []
         
-        for boxIndex in 0 ..< boxes.count {
-            boxes[boxIndex].forEach { card in
-                let nextReviewDay = calendar.startOfDay(for: card.nextReviewDate)  // Strip time from nextReviewDate
-                if nextReviewDay <= nowDay {
-                    dueCards.append(card)
-                }
-            }
+        for box in boxes where box.nextReviewDate <= today {
+            dueCards.append(contentsOf: box.cards)
         }
         
         return Array(dueCards.prefix(limit))
     }
 
-    private func moveCard(_ card: inout Card, to boxIndex: Int) {
-        // Update the card's lastReviewed date
-        card.lastReviewed = Date()
-
-        // Calculate the next review date based on the box's interval
-        let interval = reviewInterval(for: boxIndex)
-        card.nextReviewDate = Calendar.current.date(byAdding: .day, value: interval, to: card.lastReviewed)!
-        
+    private func appendCard(_ card: inout Card, to boxIndex: Int) {
         // Move the card to the target box
-        boxes[boxIndex].append(card)
+        boxes[boxIndex].cards.append(card)
     }
-
-    private func reviewInterval(for boxIndex: Int) -> Int {
-        reviewIntervals[boxIndex]
-    }
-
 }

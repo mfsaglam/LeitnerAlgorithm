@@ -12,6 +12,7 @@
 		1259B4C82C8E0165002424A0 /* LeitnerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */; };
 		1259B4CA2C8E0182002424A0 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4C92C8E0182002424A0 /* Word.swift */; };
 		1259B4CC2C8E018A002424A0 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4CB2C8E018A002424A0 /* Card.swift */; };
+		1259B4CE2C974E5B002424A0 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259B4CD2C974E5B002424A0 /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeitnerSystem.swift; sourceTree = "<group>"; };
 		1259B4C92C8E0182002424A0 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		1259B4CB2C8E018A002424A0 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		1259B4CD2C974E5B002424A0 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				1259B4C72C8E0165002424A0 /* LeitnerSystem.swift */,
 				1259B4C92C8E0182002424A0 /* Word.swift */,
 				1259B4CB2C8E018A002424A0 /* Card.swift */,
+				1259B4CD2C974E5B002424A0 /* Box.swift */,
 			);
 			path = LeitnerAlgorithm;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1259B4C82C8E0165002424A0 /* LeitnerSystem.swift in Sources */,
+				1259B4CE2C974E5B002424A0 /* Box.swift in Sources */,
 				1259B4CC2C8E018A002424A0 /* Card.swift in Sources */,
 				1259B4CA2C8E0182002424A0 /* Word.swift in Sources */,
 			);
