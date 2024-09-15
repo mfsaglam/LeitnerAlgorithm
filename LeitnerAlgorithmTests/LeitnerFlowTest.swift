@@ -142,19 +142,19 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[4].cards.count, 1, "The last box should still contain the card after a correct answer.")
         XCTAssertEqual(sut.boxes[4].cards.first?.id, id, "The card should not move beyond the last box.")
     }
-//    
-//    func test_cardInFirstBox_incorrectAnswer_keepsCardInFirstBox() {
-//        let sut = makeSUT()
-//        
-//        let id = fixedUuid
-//        var card = makeCard(with: id)
-//        sut.addCard(card)
-//        
-//        sut.updateCard(&card, correct: false)
-//        
-//        XCTAssertEqual(sut.boxes[0].count, 1, "The first box should still contain the card after an incorrect answer.")
-//        XCTAssertEqual(sut.boxes[0][0].id, id, "The card should not move after an incorrect answer in the first box.")
-//    }
+    
+    func test_cardInFirstBox_incorrectAnswer_keepsCardInFirstBox() {
+        let sut = makeSUT()
+        
+        let id = fixedUuid
+        var card = makeCard(with: id)
+        sut.addCard(card)
+        
+        sut.updateCard(&card, correct: false)
+        
+        XCTAssertEqual(sut.boxes[0].cards.count, 1, "The first box should still contain the card after an incorrect answer.")
+        XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The card should not move after an incorrect answer in the first box.")
+    }
 //    
 //    func test_cardInSecondBox_incorrectAnswer_movesCardBackToFirstBox() {
 //        let sut = makeSUT()
