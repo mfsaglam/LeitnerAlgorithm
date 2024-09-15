@@ -86,17 +86,17 @@ class LeitnerFlowTest: XCTestCase {
             XCTAssertEqual(box.reviewInterval, expectedIntervals[index], "The review interval for box \(index + 1) should be \(expectedIntervals[index]).")
         }
     }
-//
-//    func test_addCard_addsToFirstBox() {
-//        let sut = makeSUT()
-//        
-//        let id = fixedUuid
-//        let card = makeCard(with: id)
-//        sut.addCard(card)
-//
-//        XCTAssertEqual(sut.boxes[0].count, 1, "The first box should contain the card after it's added.")
-//        XCTAssertEqual(sut.boxes[0][0].id, id, "The first box should contain the card after it's added.")
-//    }
+
+    func test_addCard_addsToFirstBox() {
+        let sut = makeSUT()
+        
+        let id = fixedUuid
+        let card = makeCard(with: id)
+        sut.addCard(card)
+
+        XCTAssertEqual(sut.boxes[0].cards.count, 1, "The first box should contain the card after it's added.")
+        XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The first box should contain the card after it's added.")
+    }
 //    
 //    func test_cardInFirstBox_correctAnswer_movesCardToSecondBox() {
 //        let sut = makeSUT()
