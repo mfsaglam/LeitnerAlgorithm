@@ -185,43 +185,70 @@ class LeitnerFlowTest: XCTestCase {
         XCTAssertEqual(sut.boxes[4].cards.count, 0, "The last box should be empty after an incorrect answer.")
         XCTAssertEqual(sut.boxes[0].cards.first?.id, id, "The card should move back to the previous box after an incorrect answer.")
     }
-//
-//    func test_dueForReview_returnsDueCards() {
-//        let sut = makeSUT()
-//        
-//        let pastDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())! // 1 hour in the past
-//        let futureDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())! // 1 hour in the future
-//        
-//        let card1 = makeCard(with: UUID(), lastReviewed: pastDate) // Due for review
-//        let card2 = makeCard(with: UUID(), lastReviewed: futureDate) // Not due
-//        
-//        sut.addCard(card1)
-//        sut.addCard(card2)
-//        
-//        let result = sut.dueForReview(limit: 1)
-//        
-//        XCTAssertEqual(result.count, 1, "Expected 1 card due for review, got \(result.count)")
-//        XCTAssertEqual(result.first?.id, card1.id, "Expected the first card to be due for review.")
-//    }
-//    
-//    func test_dueForReview_limitsReturnedCards() {
-//        let sut = makeSUT()
-//        
-//        let pastDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())! // 1 hour in the past
-//        
-//        // Create 3 cards, all due for review
-//        let card1 = makeCard(with: fixedUuid, lastReviewed: pastDate)
-//        let card2 = makeCard(with: fixedUuid, lastReviewed: pastDate)
-//        let card3 = makeCard(with: fixedUuid, lastReviewed: pastDate)
-//        
-//        sut.addCard(card1)
-//        sut.addCard(card2)
-//        sut.addCard(card3)
-//        
-//        let result = sut.dueForReview(limit: 2)
-//
-//        XCTAssertEqual(result.count, 2, "Expected to fetch only 2 cards due for review, got \(result.count)")
-//    }
+
+    func test_dueForReview_returnsDueCards() {
+        let sut = makeSUT()
+        
+        let pastDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())! // 2 days in the past
+        let futureDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())! // 1 day in the future
+        
+        let card1 = makeCard(with: UUID())
+        let card2 = makeCard(with: UUID())
+        
+        sut.loadBoxes(
+            boxes: [
+                makeBox(cards: [card1], lastReviewedDate: pastDate), // Due for review
+                makeBox(cards: [card2], lastReviewedDate: futureDate) // Not due
+            ]
+        )
+        
+        let result = sut.dueForReview(limit: 1)
+        
+        XCTAssertEqual(result.count, 1, "Expected 1 card due for review, got \(result.count)")
+        XCTAssertEqual(result.first?.id, card1.id, "Expected the first card to be due for review.")
+    }
+    
+    func test_dueForReview_limitsReturnedCards() {
+        let sut = makeSUT()
+        
+        let pastDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())! // 2 days in the past
+        
+        // Create 3 cards, all due for review
+        let card1 = makeCard(with: UUID())
+        let card2 = makeCard(with: UUID())
+        let card3 = makeCard(with: UUID())
+        
+        sut.loadBoxes(
+            boxes: [
+                makeBox(cards: [card1, card2, card3], lastReviewedDate: pastDate), // Due for review
+            ]
+        )
+        
+        let result = sut.dueForReview(limit: 2)
+        
+        XCTAssertEqual(result.count, 2, "Expected to fetch only 2 cards due for review, got \(result.count)")
+    }
+    
+    func test_dueForReview_noDueCards_returnsEmpty() {
+        let sut = makeSUT()
+        
+        let pastDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())! // 1 day in the past
+        
+        // Create 3 cards
+        let card1 = makeCard(with: UUID())
+        let card2 = makeCard(with: UUID())
+        let card3 = makeCard(with: UUID())
+        
+        sut.loadBoxes(
+            boxes: [
+                makeBox(cards: [card1, card2, card3], reviewInterval: 2, lastReviewedDate: pastDate), // Not due for review
+            ]
+        )
+        
+        let result = sut.dueForReview()
+        
+        XCTAssertTrue(result.isEmpty, "Expected to fetch none, got \(result.count)")
+    }
 
      // MARK: - Test Helpers
     
@@ -240,7 +267,7 @@ class LeitnerFlowTest: XCTestCase {
         reviewInterval: TimeInterval = 1,
         lastReviewedDate: Date = Date(timeIntervalSince1970: 0)
     ) -> Box {
-        .init(cards: cards, reviewInterval: reviewInterval, lastReviewedDate: fixedDate)
+        .init(cards: cards, reviewInterval: reviewInterval, lastReviewedDate: lastReviewedDate)
     }
     
     private func makeCard(
